@@ -13,6 +13,7 @@
     "async.js": "^0.9.5",
     "browserify": "^17.0.0",
     "cloudinary": "^1.27.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "hapi": "^18.1.0",
     "jshint": "^2.13.1",
