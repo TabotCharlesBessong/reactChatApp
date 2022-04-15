@@ -1,0 +1,78 @@
+
+*,*::before,*::after{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr auto ;
+  grid-template-rows: 1fr auto ;
+  grid-template-areas:
+  "image sidebar"
+  "slider sidebar"
+  ;
+  height: 100vh;
+  width: 100vw;
+  background:#dadada;
+}
+.main-image{
+  grid-area: image;
+  background:url('./images/agents2.jfif');
+  width: 100%;
+  height: 100%;
+  background-position: top  center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.sidebar{
+  grid-area: sidebar;
+  background: hsl(265 , 100%, 86%);
+  border-left: 1px solid hsl(265 , 100%, 86%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+}
+
+.sidebar-item{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: hsl(265 , 100%, 86%);
+  padding: 1rem;
+  position: relative;
+  transition: background-color 150ms linear;
+}
+
+.sidebar-item:hover , .sidebar-item:focus{
+  background: hsl(265 , 100%, 76%);
+}
+
+.sidebar-item.active{
+  background: hsl(265 , 100%, 70%);
+}
+
+.sidebar-item::after{
+  content:'';
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  bottom: 0;
+  height: 1px;
+  background: hsl(265 , 100%, 46%);
+}
+.sidebar-item:last-child::after{
+  display: inline;
+}
+.slider-container{
+  grid-area: slider;
+  /* background: green; */
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+.slider{
+  width: 100%;
+  cursor: pointer;
+}
