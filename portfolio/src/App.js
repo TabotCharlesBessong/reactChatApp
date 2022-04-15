@@ -1,9 +1,17 @@
 import React from 'react'
+import { About , Testimonials, Work, Skills, Footer, Header } from './container'
+import { Navbar } from './components'
 
 const App = () => {
   return (
-    <div>
-      <h2>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis tempore suscipit quae at voluptatum sequi aliquam, commodi enim nam rerum consequuntur nemo ex assumenda sunt perferendis. Quisquam rem cum officia eius sunt quod id fugit reprehenderit consectetur, nihil, facilis quae nemo. Autem porro velit maxime earum minima quae sed nulla.</h2>
+    <div className='app' >
+      <Navbar/>
+      <Header/>
+      <About/>
+      <Work/>
+      <Skills/>
+      <Testimonials/>
+      <Footer/>
     </div>
   )
 }
