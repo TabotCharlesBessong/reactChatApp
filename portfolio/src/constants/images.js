@@ -35,6 +35,7 @@ import nb from '../assets/nb.png';
 import skype from '../assets/skype.png';
 import spotify from '../assets/spotify.png';
 import mysql from '../assets/mysql.png';
+import wave from '../assets/wave.png';
 import c from '../assets/c.png';
 import psql from '../assets/psql.png';
 import charles from '../assets/charles.jpg';
@@ -83,5 +84,6 @@ export default {
   psql,
   charles,
   bessong,
-  tabot
+  tabot,
+  wave
 };
