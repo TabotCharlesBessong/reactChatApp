@@ -27,11 +27,20 @@ app.get('/',(req,res) => {
 io.on('connection',(socket) => {
   // console.log('Connected to socket')
   socket.on('send-message',(data) => {
-    socket.emit('message-from-server',data)
+    socket.broadcast.emit('message-from-server',data)
     console.log('Message received')
     console.log(data)
   })
+  socket.on('disconnect',(socket) => {
+    console.log('User left the chat')
+    // socket.on('send-message',(data) => {
+    //   socket.emit('message-from-server',data)
+    //   console.log('Message received')
+    //   console.log(data)
+    // })
+  })
 })
+
 
 httpServer.listen(PORT,() => {
   console.log(`Server is running on localhost ${PORT}`)
