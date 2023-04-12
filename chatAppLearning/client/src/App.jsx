@@ -1,20 +1,41 @@
+import { Box, Button, TextField } from "@mui/material";
+import { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 
-import {Button} from '@mui/material'
-import { useState,useEffect } from 'react'
-import {io} from 'socket.io-client'
-
-function App() {
-  const [socket, setSocket] = useState(null);
-  
+const App = () => {
+  const [socket, setSocket] = useState(io("http://localhost:5000"));
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    setSocket(io('http://localhost:5000'))
-  },[])
-  return (
-    <div>
-      <h1>Hello world</h1>
-    </div>
-  )
-}
+    // setSocket(io("http://localhost:5000"));
+    console.log(socket)
+  }, []);
+  useEffect(() => {
+    if(!socket) return
+    socket.on('message-from-server',(data) => {
+      console.log('message received from server',data)
+    })
+  }, [socket]);
 
-export default App
+  const handleForm = (e) => {
+    e.preventDefault();
+    // console.log(message)
+    socket.emit('send-message', {message})
+    setMessage('')
+  };
+  return (
+    <Box component="form" onSubmit={handleForm}>
+      <TextField
+        placeholder="write your message"
+        variant="standard"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <Button variant="contained" type="submit">
+        send message
+      </Button>
+    </Box>
+  );
+};
+
+export default App;

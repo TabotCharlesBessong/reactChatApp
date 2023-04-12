@@ -25,7 +25,12 @@ app.get('/',(req,res) => {
 })
 
 io.on('connection',(socket) => {
-  console.log('Connected to socket')
+  // console.log('Connected to socket')
+  socket.on('send-message',(data) => {
+    socket.emit('message-from-server',data)
+    console.log('Message received')
+    console.log(data)
+  })
 })
 
 httpServer.listen(PORT,() => {
