@@ -29,7 +29,12 @@ io.on('connection',(socket) => {
   socket.on('send-message',(data) => {
     socket.broadcast.emit('message-from-server',data)
     console.log('Message received')
-    console.log(data)
+  })
+  socket.on('typing-started',() => {
+    socket.broadcast.emit('typing-started-from-server')
+  })
+  socket.on('typing-stoped',() => {
+    socket.broadcast.emit('typing-stoped-from-server')
   })
   socket.on('disconnect',(socket) => {
     console.log('User left the chat')
