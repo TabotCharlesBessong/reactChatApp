@@ -11,18 +11,15 @@ import {
 } from "@mui/material";
 import {io} from 'socket.io-client'
 import {Send} from '@mui/icons-material'
+import { useOutletContext } from "react-router-dom";
 
 const ChatWindow = () => {
-  const [socket, setSocket] = useState(io("http://localhost:5000"));
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
   const [typing, setTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const {socket} = useOutletContext()
 
-  useEffect(() => {
-    // setSocket(io("http://localhost:5000"));
-    console.log(socket);
-  }, []);
   useEffect(() => {
     if (!socket) return;
     socket.on("message-from-server", (data) => {
@@ -54,44 +51,43 @@ const ChatWindow = () => {
     },1000))
   }
   return (
-    <Box xs={{display:'flex',justifyContent:'center'}} >
-      <Card sx={{padding:2,marginTop:10,width:'60%',backgroundColor:'orangered'}} >
-        <Box sx={{ marginBottom: 5 }}>
-          {chat.map((data,index) => (
-            <Typography sx={{textAlign:data.received ? 'left': 'right'}} key={index} variant="subtitle1">
-              {data.message}
-            </Typography>
-          ))}
-        </Box>
-        <Box component="form" onSubmit={handleForm}>
-          {
-            typing && (
-              <InputLabel sx={{color:'white'}} shrink htmlFor='message-input' >
-                typing...
-              </InputLabel>
-            )
+    <Card sx={{padding:2,marginTop:10,width:'60%',backgroundColor:'orangered'}} >
+      <Box sx={{ marginBottom: 5 }}>
+        {chat.map((data,index) => (
+          <Typography sx={{textAlign:data.received ? 'left': 'right'}} key={index} variant="subtitle1">
+            {data.message}
+          </Typography>
+        ))}
+      </Box>
+      <Box component="form" onSubmit={handleForm}>
+        {
+          typing && (
+            <InputLabel sx={{color:'white'}} shrink htmlFor='message-input' >
+              typing...
+            </InputLabel>
+          )
+        }
+        <OutlinedInput
+          type="text"
+          sx={{backgroundColor:'white',width:'100%'}}
+          value={message}
+          onChange={handleInput}
+          id='message-input'
+          placeholder="write your message"
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                type='submit'
+                edge="end"
+              >
+                <Send/>
+              </IconButton>
+            </InputAdornment>
           }
-          <OutlinedInput
-            type="text"
-            sx={{backgroundColor:'white',width:'100%'}}
-            value={message}
-            onChange={handleInput}
-            id='message-input'
-            placeholder="write your message"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  type='submit'
-                  edge="end"
-                >
-                  <Send/>
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </Box>
-      </Card>
-    </Box>
+        />
+      </Box>
+    </Card>
+    
   )
 };
 
